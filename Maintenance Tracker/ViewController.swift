@@ -58,33 +58,51 @@ class ViewController: UITableViewController{
         addVehicleAC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         //save vehicle to core data and refresh table view
         addVehicleAC.addAction(UIAlertAction(title: "Save", style: .default, handler: { UIAlertAction in
+            let inputtedMake = self.addVehicleAC.textFields![0].text
+            let inputtedModel = self.addVehicleAC.textFields![1].text
+            let inputtedYear = self.addVehicleAC.textFields![2].text
+            let inputtedType = self.addVehicleAC.textFields![3].text
+            //handle bad input
+            if inputtedMake == "" {
+                self.badFieldInput(fieldName: "Make")
+                return
+            }
+            else if inputtedModel == "" {
+                self.badFieldInput(fieldName: "Model")
+                return
+            }
+            else if inputtedYear == "" {
+                self.badFieldInput(fieldName: "Year")
+                return
+            }
             //create new vehicle object
             let newVehicle = Vehicle(context: self.context)
-            newVehicle.make = self.addVehicleAC.textFields![0].text
-            newVehicle.model = self.addVehicleAC.textFields![1].text
-            if let year = Int(self.addVehicleAC.textFields![2].text ?? ""){
+            newVehicle.make = inputtedMake
+            newVehicle.model = inputtedModel
+            if let year = Int(inputtedYear ?? ""){
                 newVehicle.year = Int64(year)
             } else {
-                //TODO handle bad year input
+                self.context.delete(newVehicle)
+                do{
+                    try self.context.save()
+                } catch{}
+                self.badYearInput()
+                return
             }
-            //default case for type
-            let inputtedType = self.addVehicleAC.textFields![3].text
+            //default case for type, default to Car
             if (!self.types.contains(inputtedType!) || inputtedType == ""){
                 newVehicle.type = "Car"
             } else {
                 newVehicle.type = inputtedType
             }
 
-            //TODO handle bad input
-            
             //save new vehicle
             do{
                 try self.context.save()
-            } catch{
-                
-            }
+            } catch{}
             self.fetchVehicles()
         }))
+        typePicker.selectRow(0, inComponent: 0, animated: true)
         present(addVehicleAC, animated: true)
     }
     
@@ -129,38 +147,52 @@ class ViewController: UITableViewController{
         editVehicleInfoAC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         editVehicleInfoAC.addAction(UIAlertAction(title: "Save", style: .default, handler: { UIAlertAction in
             //create new vehicle object
-            //let newVehicle = Vehicle(context: self.context)
-            self.vehicles[index].make = self.editVehicleInfoAC.textFields![0].text
-            self.vehicles[index].model = self.editVehicleInfoAC.textFields![1].text
-            if let year = Int(self.editVehicleInfoAC.textFields![2].text ?? ""){
+            let inputtedMake = self.editVehicleInfoAC.textFields![0].text
+            let inputtedModel = self.editVehicleInfoAC.textFields![1].text
+            let inputtedYear = self.editVehicleInfoAC.textFields![2].text
+            let inputtedType = self.editVehicleInfoAC.textFields![3].text
+            //handle bad input
+            if inputtedMake == "" {
+                self.badFieldInput(fieldName: "Make")
+                return
+            }
+            else if inputtedModel == "" {
+                self.badFieldInput(fieldName: "Model")
+                return
+            }
+            else if inputtedYear == "" {
+                self.badFieldInput(fieldName: "Year")
+                return
+            }
+            
+            self.vehicles[index].make = inputtedMake
+            self.vehicles[index].model = inputtedModel
+            if let year = Int(inputtedYear ?? ""){
                 self.vehicles[index].year = Int64(year)
             } else {
-                //TODO handle bad year input
+                self.badYearInput()
+                return
             }
-
             //default case for type
-            let inputtedType = self.editVehicleInfoAC.textFields![3].text
             if (!self.types.contains(inputtedType!) || inputtedType == ""){
                 self.vehicles[index].type = "Car"
             } else {
                 self.vehicles[index].type = inputtedType
             }
-            //TODO handle bad input
             
             //save new vehicle
             do{
                 try self.context.save()
-            } catch{
-                
-            }
+            } catch{}
             self.fetchVehicles()
         }))
+        typePicker.selectRow(types.firstIndex(of: vehicles[index].type ?? "") ?? 0, inComponent: 0, animated: true)
         present(editVehicleInfoAC, animated: true)
     }
     
     //ask user if they are sure they want to delete, then remove vehicle from core data
     func deleteVehicle(atIndex index: Int){
-        let message = "Are you sure you want to delete \(self.vehicles[index].year) \(self.vehicles[index].make!) \(self.vehicles[index].model!)? All of its data will be lost."
+        let message = "Are you sure you want to delete \(self.vehicles[index].year) \(self.vehicles[index].make ?? "") \(self.vehicles[index].model ?? "")? All of its data will be lost."
         let deleteVehicleAC = UIAlertController(title: "Delete Vehicle", message: message, preferredStyle: .alert)
         deleteVehicleAC.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         deleteVehicleAC.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: {UIAlertAction in
@@ -173,14 +205,25 @@ class ViewController: UITableViewController{
             self.context.delete(self.vehicles[index])
             do{
                 try self.context.save()
-            } catch{
-                
-            }
+            } catch{}
             self.fetchVehicles()
         }))
         present(deleteVehicleAC, animated: true)
     }
     
+    //inform user of improper input for year
+    func badYearInput(){
+        let badYearAC = UIAlertController(title: "Bad Input", message: "Bad Input: Year must be an integer", preferredStyle: .alert)
+        badYearAC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(badYearAC, animated: true)
+    }
+    
+    //inform user of improper input for fieldName
+    func badFieldInput(fieldName: String){
+        let badFieldAC = UIAlertController(title: "Input", message: "Field \(fieldName) can not be empty", preferredStyle: .alert)
+        badFieldAC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(badFieldAC, animated: true)
+    }
     
     //get all stored vehicles in sorted order and refresh tableview
     func fetchVehicles(){
@@ -197,14 +240,13 @@ class ViewController: UITableViewController{
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-
     }
     
     //add contents to table view cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VehicleCell", for: indexPath) as! VehicleCell
 
-        cell.vehicleInfoLabel.text = "\(vehicles[indexPath.row].year) \(vehicles[indexPath.row].make!) \(vehicles[indexPath.row].model!) "
+        cell.vehicleInfoLabel.text = "\(vehicles[indexPath.row].year) \(vehicles[indexPath.row].make ?? "") \(vehicles[indexPath.row].model ?? "") "
         
         cell.additionalInfoLabel.text = "\(vehicles[indexPath.row].type ?? "")"
         
@@ -218,7 +260,7 @@ class ViewController: UITableViewController{
                 cell.thumbnailImage.tintColor = .lightGray
             }
         } else {
-            cell.thumbnailImage.image = UIImage(named: self.vehicles[indexPath.row].type!.lowercased())
+            cell.thumbnailImage.image = UIImage(named: (self.vehicles[indexPath.row].type ?? "").lowercased())
             cell.thumbnailImage.tintColor = .lightGray
         }
         return cell
