@@ -180,7 +180,7 @@ class ViewController: UITableViewController{
                 self.vehicles[index].type = inputtedType
             }
             
-            //save new vehicle
+            //save vehicle
             do{
                 try self.context.save()
             } catch{}
@@ -213,14 +213,14 @@ class ViewController: UITableViewController{
     
     //inform user of improper input for year
     func badYearInput(){
-        let badYearAC = UIAlertController(title: "Bad Input", message: "Bad Input: Year must be an integer", preferredStyle: .alert)
+        let badYearAC = UIAlertController(title: "Incorrect Input", message: "Incorrect Input: Year must be an integer", preferredStyle: .alert)
         badYearAC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(badYearAC, animated: true)
     }
     
     //inform user of improper input for fieldName
     func badFieldInput(fieldName: String){
-        let badFieldAC = UIAlertController(title: "Input", message: "Field \(fieldName) can not be empty", preferredStyle: .alert)
+        let badFieldAC = UIAlertController(title: "Incorrect Input", message: "Field \(fieldName) can not be empty", preferredStyle: .alert)
         badFieldAC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(badFieldAC, animated: true)
     }
@@ -234,9 +234,7 @@ class ViewController: UITableViewController{
             let modelSort = NSSortDescriptor(key: "model", ascending: false)
             request.sortDescriptors = [yearSort, makeSort, modelSort]
             self.vehicles = try context.fetch(request)
-        } catch {
-            
-        }
+        } catch {}
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -252,10 +250,13 @@ class ViewController: UITableViewController{
         
         //set image to saved image or default
         cell.thumbnailImage.layer.cornerRadius = cell.thumbnailImage.bounds.height/2
+        cell.thumbnailImage.backgroundColor = .white
         if let url = URL(string: vehicles[indexPath.row].imagePath ?? ""){
             if let imageData = NSData(contentsOf: url){
+                //User has assigned custom image to vehicle
                 cell.thumbnailImage.image = UIImage(data: imageData as Data)
             } else {
+                //get default image based on vehicle type
                 cell.thumbnailImage.image = UIImage(named: self.vehicles[indexPath.row].type!.lowercased())
                 cell.thumbnailImage.tintColor = .lightGray
             }
@@ -264,6 +265,20 @@ class ViewController: UITableViewController{
             cell.thumbnailImage.tintColor = .lightGray
         }
         return cell
+    }
+    
+    //perform sugue to maintenance item tabel view
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedVehicle = vehicles[indexPath.row]
+        performSegue(withIdentifier: "GarageToMaintenanceItem", sender: selectedVehicle)
+    }
+    
+    //pass reference to selected vehicle to maintenance item tabel view
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GarageToMaintenanceItem"{
+            let destinationVC = segue.destination as! MaintenanceItemTVC
+            destinationVC.vehicle = sender as? Vehicle
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -281,6 +296,7 @@ class ViewController: UITableViewController{
         return config
     }
 
+    //add action to delete on left swipe
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completionHandler) in
             self.deleteVehicle(atIndex: indexPath.row)

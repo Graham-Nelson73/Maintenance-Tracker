@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2B32274225181DC100C6512D /* VehicleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32274125181DC100C6512D /* VehicleCell.swift */; };
-		2B8261742517E70F005BC07C /* Vehicle+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8261702517E70F005BC07C /* Vehicle+CoreDataClass.swift */; };
-		2B8261752517E70F005BC07C /* Vehicle+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8261712517E70F005BC07C /* Vehicle+CoreDataProperties.swift */; };
-		2B8261762517E70F005BC07C /* Maintenance_Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8261722517E70F005BC07C /* Maintenance_Item+CoreDataClass.swift */; };
-		2B8261772517E70F005BC07C /* Maintenance_Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8261732517E70F005BC07C /* Maintenance_Item+CoreDataProperties.swift */; };
+		2B32274625210AAE00C6512D /* MaintenanceItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32274525210AAE00C6512D /* MaintenanceItemTVC.swift */; };
+		2B322749252113F000C6512D /* MaintenanceItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B322748252113F000C6512D /* MaintenanceItemCell.swift */; };
+		2B3227512521171D00C6512D /* Vehicle+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32274D2521171D00C6512D /* Vehicle+CoreDataClass.swift */; };
+		2B3227522521171D00C6512D /* Vehicle+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32274E2521171D00C6512D /* Vehicle+CoreDataProperties.swift */; };
+		2B3227532521171D00C6512D /* MaintenanceItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32274F2521171D00C6512D /* MaintenanceItem+CoreDataClass.swift */; };
+		2B3227542521171D00C6512D /* MaintenanceItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3227502521171D00C6512D /* MaintenanceItem+CoreDataProperties.swift */; };
+		2BCF35F9252143A70000D89A /* MaintenanceItemDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF35F8252143A70000D89A /* MaintenanceItemDetailVC.swift */; };
 		2BF9FA3C2516BD95006ACEA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9FA3B2516BD95006ACEA5 /* AppDelegate.swift */; };
 		2BF9FA3E2516BD95006ACEA5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9FA3D2516BD95006ACEA5 /* SceneDelegate.swift */; };
 		2BF9FA402516BD95006ACEA5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9FA3F2516BD95006ACEA5 /* ViewController.swift */; };
@@ -23,10 +26,13 @@
 
 /* Begin PBXFileReference section */
 		2B32274125181DC100C6512D /* VehicleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleCell.swift; sourceTree = "<group>"; };
-		2B8261702517E70F005BC07C /* Vehicle+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+CoreDataClass.swift"; sourceTree = "<group>"; };
-		2B8261712517E70F005BC07C /* Vehicle+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2B8261722517E70F005BC07C /* Maintenance_Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maintenance_Item+CoreDataClass.swift"; sourceTree = "<group>"; };
-		2B8261732517E70F005BC07C /* Maintenance_Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maintenance_Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2B32274525210AAE00C6512D /* MaintenanceItemTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceItemTVC.swift; sourceTree = "<group>"; };
+		2B322748252113F000C6512D /* MaintenanceItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceItemCell.swift; sourceTree = "<group>"; };
+		2B32274D2521171D00C6512D /* Vehicle+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2B32274E2521171D00C6512D /* Vehicle+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2B32274F2521171D00C6512D /* MaintenanceItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaintenanceItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2B3227502521171D00C6512D /* MaintenanceItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaintenanceItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2BCF35F8252143A70000D89A /* MaintenanceItemDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceItemDetailVC.swift; sourceTree = "<group>"; };
 		2BF9FA382516BD95006ACEA5 /* Maintenance Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maintenance Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF9FA3B2516BD95006ACEA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BF9FA3D2516BD95006ACEA5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,10 +58,10 @@
 		2BF9FA2F2516BD95006ACEA5 = {
 			isa = PBXGroup;
 			children = (
-				2B8261702517E70F005BC07C /* Vehicle+CoreDataClass.swift */,
-				2B8261712517E70F005BC07C /* Vehicle+CoreDataProperties.swift */,
-				2B8261722517E70F005BC07C /* Maintenance_Item+CoreDataClass.swift */,
-				2B8261732517E70F005BC07C /* Maintenance_Item+CoreDataProperties.swift */,
+				2B32274D2521171D00C6512D /* Vehicle+CoreDataClass.swift */,
+				2B32274E2521171D00C6512D /* Vehicle+CoreDataProperties.swift */,
+				2B32274F2521171D00C6512D /* MaintenanceItem+CoreDataClass.swift */,
+				2B3227502521171D00C6512D /* MaintenanceItem+CoreDataProperties.swift */,
 				2BF9FA3A2516BD95006ACEA5 /* Maintenance Tracker */,
 				2BF9FA392516BD95006ACEA5 /* Products */,
 			);
@@ -77,6 +83,9 @@
 				2BF9FA3F2516BD95006ACEA5 /* ViewController.swift */,
 				2B32274125181DC100C6512D /* VehicleCell.swift */,
 				2BF9FA412516BD95006ACEA5 /* Main.storyboard */,
+				2BCF35F8252143A70000D89A /* MaintenanceItemDetailVC.swift */,
+				2B322748252113F000C6512D /* MaintenanceItemCell.swift */,
+				2B32274525210AAE00C6512D /* MaintenanceItemTVC.swift */,
 				2BF9FA472516BD97006ACEA5 /* Assets.xcassets */,
 				2BF9FA492516BD97006ACEA5 /* LaunchScreen.storyboard */,
 				2BF9FA4C2516BD97006ACEA5 /* Info.plist */,
@@ -156,14 +165,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B8261772517E70F005BC07C /* Maintenance_Item+CoreDataProperties.swift in Sources */,
+				2B32274625210AAE00C6512D /* MaintenanceItemTVC.swift in Sources */,
 				2BF9FA462516BD95006ACEA5 /* Maintenance_Tracker.xcdatamodeld in Sources */,
-				2B8261762517E70F005BC07C /* Maintenance_Item+CoreDataClass.swift in Sources */,
-				2B8261742517E70F005BC07C /* Vehicle+CoreDataClass.swift in Sources */,
-				2B8261752517E70F005BC07C /* Vehicle+CoreDataProperties.swift in Sources */,
+				2BCF35F9252143A70000D89A /* MaintenanceItemDetailVC.swift in Sources */,
+				2B3227542521171D00C6512D /* MaintenanceItem+CoreDataProperties.swift in Sources */,
+				2B3227522521171D00C6512D /* Vehicle+CoreDataProperties.swift in Sources */,
+				2B3227512521171D00C6512D /* Vehicle+CoreDataClass.swift in Sources */,
 				2BF9FA402516BD95006ACEA5 /* ViewController.swift in Sources */,
 				2B32274225181DC100C6512D /* VehicleCell.swift in Sources */,
+				2B322749252113F000C6512D /* MaintenanceItemCell.swift in Sources */,
 				2BF9FA3C2516BD95006ACEA5 /* AppDelegate.swift in Sources */,
+				2B3227532521171D00C6512D /* MaintenanceItem+CoreDataClass.swift in Sources */,
 				2BF9FA3E2516BD95006ACEA5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

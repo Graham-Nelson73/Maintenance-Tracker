@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Maintenance_Item" representedClassName="Maintenance_Item" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="MaintenanceItem" representedClassName="MaintenanceItem" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="mileage" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="perfomred_On" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="executes" inverseEntity="Vehicle"/>
+        <relationship name="performedOn" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="executes" inverseEntity="Vehicle"/>
     </entity>
     <entity name="Vehicle" representedClassName="Vehicle" syncable="YES">
         <attribute name="imagePath" optional="YES" attributeType="String"/>
@@ -13,10 +13,10 @@
         <attribute name="model" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="executes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Maintenance_Item" inverseName="perfomred_On" inverseEntity="Maintenance_Item"/>
+        <relationship name="executes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MaintenanceItem" inverseName="performedOn" inverseEntity="MaintenanceItem"/>
     </entity>
     <elements>
-        <element name="Maintenance_Item" positionX="-18" positionY="54" width="128" height="118"/>
+        <element name="MaintenanceItem" positionX="-18" positionY="54" width="128" height="118"/>
         <element name="Vehicle" positionX="-45" positionY="0" width="128" height="133"/>
     </elements>
 </model>
