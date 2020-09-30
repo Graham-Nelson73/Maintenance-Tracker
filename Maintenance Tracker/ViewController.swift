@@ -33,19 +33,32 @@ class ViewController: UITableViewController{
         vehiclesTableView.rowHeight = 100
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Vehicle", style: .plain, target: self, action: #selector(addVehicle))
+//        navigationController?.navigationBar.barTintColor = UIColor(displayP3Red: 235/255, green: 110/255, blue: 52/255, alpha: 1)
+        
+        let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+            navBarAppearance.backgroundColor = UIColor(displayP3Red: 235/255, green: 91/255, blue: 52/255, alpha: 1)
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController?.navigationBar.tintColor = .black
         
         typePicker.delegate = self
         typePicker.dataSource = self
     }
     
+    //Present alert for user to specify details for a new vehicle
     @objc func addVehicle(){
         //fill alert with input fields
         addVehicleAC = UIAlertController(title: "Add Vehicle", message: nil, preferredStyle: .alert)
         addVehicleAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
             textField.placeholder = "Make"
+            textField.autocapitalizationType = .words
         })
         addVehicleAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
             textField.placeholder = "Model"
+            textField.autocapitalizationType = .words
         })
         addVehicleAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
             textField.placeholder = "Year ex: 1999"
@@ -128,10 +141,12 @@ class ViewController: UITableViewController{
         editVehicleInfoAC = UIAlertController(title: "Edit Vehicle Info", message: nil, preferredStyle: .alert)
         editVehicleInfoAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
             textField.placeholder = "Make"
+            textField.autocapitalizationType = .words
             textField.text = self.vehicles[index].make ?? ""
         })
         editVehicleInfoAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
             textField.placeholder = "Model"
+            textField.autocapitalizationType = .words
             textField.text = self.vehicles[index].model ?? ""
         })
         editVehicleInfoAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
@@ -243,7 +258,7 @@ class ViewController: UITableViewController{
     //add contents to table view cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VehicleCell", for: indexPath) as! VehicleCell
-
+        cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         cell.vehicleInfoLabel.text = "\(vehicles[indexPath.row].year) \(vehicles[indexPath.row].make ?? "") \(vehicles[indexPath.row].model ?? "") "
         
         cell.additionalInfoLabel.text = "\(vehicles[indexPath.row].type ?? "")"
@@ -251,6 +266,9 @@ class ViewController: UITableViewController{
         //set image to saved image or default
         cell.thumbnailImage.layer.cornerRadius = cell.thumbnailImage.bounds.height/2
         cell.thumbnailImage.backgroundColor = .white
+        cell.thumbnailImage.layer.borderWidth = 1
+        cell.thumbnailImage.layer.borderColor = UIColor.lightGray.cgColor
+        
         if let url = URL(string: vehicles[indexPath.row].imagePath ?? ""){
             if let imageData = NSData(contentsOf: url){
                 //User has assigned custom image to vehicle
@@ -291,7 +309,7 @@ class ViewController: UITableViewController{
             self.editVehicle(atIndex: indexPath.row)
             completionHandler(true)
         }
-        editAction.backgroundColor = .green
+        editAction.backgroundColor = UIColor(displayP3Red: 37/255, green: 179/255, blue: 63/255, alpha: 1)
         let config = UISwipeActionsConfiguration(actions: [editAction])
         return config
     }
@@ -302,7 +320,7 @@ class ViewController: UITableViewController{
             self.deleteVehicle(atIndex: indexPath.row)
             completionHandler(true)
         }
-        //deleteAction.backgroundColor = .green
+        //deleteAction.backgroundColor = UIColor(displayP3Red: 219/255, green: 44/255, blue: 35/255, alpha: 1)
         let config = UISwipeActionsConfiguration(actions: [deleteAction])
         return config
     }

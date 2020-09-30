@@ -11,7 +11,7 @@ import CoreData
 
 class MaintenanceItemDetailVC: UIViewController {
 
-    @IBOutlet var itemTitle: UILabel!
+    //@IBOutlet var itemTitle: UILabel!
     @IBOutlet var itemMileage: UILabel!
     @IBOutlet var itemDate: UILabel!
     @IBOutlet var itemDescription: UITextView!
@@ -38,12 +38,15 @@ class MaintenanceItemDetailVC: UIViewController {
     }
     
     func fillVehicleData(){
+        //fill the name of the vehicle and get the associated image
         if let vehicle = maintenanceItem!.performedOn{
             vehicleLabel.text = "\(vehicle.year) \(vehicle.make ?? "") \(vehicle.model ?? "")"
             
             //get image for vehicle or default based on type
             vehicleImageView.layer.cornerRadius = vehicleImageView.bounds.height/2
             vehicleImageView.backgroundColor = .white
+            vehicleImageView.layer.borderWidth = 1
+            vehicleImageView.layer.borderColor = UIColor.lightGray.cgColor
             if let url = URL(string: vehicle.imagePath ?? ""){
                 if let imageData = NSData(contentsOf: url){
                     //User has assigned custom image to vehicle
@@ -60,11 +63,11 @@ class MaintenanceItemDetailVC: UIViewController {
         } else {
             vehicleLabel.text = ""
         }
-        
     }
     
     func initializeLabels(){
         itemDescription.delegate = self
+        //get the date and format it
         dateFormatter.dateFormat = "MM-dd-yyyy"
         numberFormatter.numberStyle = .decimal
         var itemDateString : String
@@ -74,30 +77,32 @@ class MaintenanceItemDetailVC: UIViewController {
             itemDateString = ""
         }
         
-        itemTitle.text = maintenanceItem!.title ?? ""
+        title = maintenanceItem!.title ?? ""
         //format milage with commas
         itemMileage.text = "Mileage: \(numberFormatter.string(from: NSNumber(value: maintenanceItem!.mileage)) ?? "")"
         itemDate.text = "Date: \(itemDateString)"
+        
+        //dismiss the keyboard when user taps outside of textView
+        let tapGestureReconizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGestureReconizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureReconizer)
+        //style the description text view
+        itemDescription.autocapitalizationType = .sentences
         itemDescription.text = maintenanceItem!.desc ?? ""
         itemDescription.layer.cornerRadius = 15
-        //itemDescription.backgroundColor = .lightGray
         itemDescription.layer.borderWidth = 1
         itemDescription.layer.borderColor = UIColor.lightGray.cgColor
+        
+        itemDescription.layer.masksToBounds = false
+        itemDescription.layer.shadowColor = UIColor.lightGray.cgColor
+        itemDescription.layer.shadowOpacity = 1
+        itemDescription.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        itemDescription.layer.shadowRadius = 5
     }
     
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
     }
-    */
-
 }
 
 extension MaintenanceItemDetailVC: UITextViewDelegate {

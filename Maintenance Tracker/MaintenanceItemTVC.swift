@@ -67,6 +67,7 @@ class MaintenanceItemTVC: UITableViewController {
         addMaintenanceItemAC = UIAlertController(title: "New Maintenance Item", message: nil, preferredStyle: .alert)
         addMaintenanceItemAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
             textField.placeholder = "Title"
+            textField.autocapitalizationType = .words
         })
         addMaintenanceItemAC.addTextField(configurationHandler: { (textField : UITextField!) -> Void in
             textField.placeholder = "Mileage"
@@ -180,6 +181,7 @@ class MaintenanceItemTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MaintenanceItemCell", for: indexPath) as! MaintenanceItemCell
+        cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         var itemDateString : String
         if let itemDate = maintenanceItems[indexPath.row].date {
             itemDateString = dateFormatter.string(from: itemDate)
