@@ -230,6 +230,10 @@ class ViewController: UITableViewController{
                     try FileManager.default.removeItem(atPath: self.vehicles[index].imagePath!)
                 } catch { }
             }
+            //delete all maintenanceItems associated with vehicle
+            for case let maintenanceItem as MaintenanceItem in self.vehicles[index].executes! {
+                self.context.delete(maintenanceItem)
+            }
             self.context.delete(self.vehicles[index])
             do{
                 try self.context.save()

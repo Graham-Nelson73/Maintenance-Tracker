@@ -54,9 +54,9 @@ class MaintenanceItemTVC: UITableViewController {
 
     func fetchMaintenanceItems(){
         //let maintenanceItems =
-        let sortedSet = vehicle!.executes?.sortedArray(using: [NSSortDescriptor(key: "date", ascending: false), NSSortDescriptor(key: "mileage", ascending: false), NSSortDescriptor(key: "title", ascending: false)]) as! [MaintenanceItem]
-        maintenanceItems = sortedSet
-        //let maintenanceItems = Array(vehicle!.executes as! Set<MaintenanceItem>)
+        let sortedArray = vehicle!.executes?.sortedArray(using: [NSSortDescriptor(key: "date", ascending: false), NSSortDescriptor(key: "mileage", ascending: false), NSSortDescriptor(key: "title", ascending: false)]) as! [MaintenanceItem]
+        maintenanceItems = sortedArray
+
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
