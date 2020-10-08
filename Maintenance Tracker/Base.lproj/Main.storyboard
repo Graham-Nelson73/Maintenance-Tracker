@@ -181,14 +181,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cMU-iQ-75d">
-                                <rect key="frame" x="132" y="186" width="150" height="150"/>
+                                <rect key="frame" x="132" y="206" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="Izz-ld-cEC"/>
                                     <constraint firstAttribute="height" constant="150" id="gJv-Ps-TbF"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uet-my-Abj">
-                                <rect key="frame" x="10" y="356" width="394" height="30"/>
+                                <rect key="frame" x="10" y="376" width="394" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -206,10 +206,10 @@
                             <constraint firstItem="SS4-XN-Emo" firstAttribute="leading" secondItem="dW9-Mb-D0E" secondAttribute="leading" constant="55" id="Mfd-aC-qvd"/>
                             <constraint firstItem="ESG-Dm-mUK" firstAttribute="leading" secondItem="dW9-Mb-D0E" secondAttribute="leading" constant="20" id="NVi-Nh-zIc"/>
                             <constraint firstItem="cAx-nj-LKD" firstAttribute="leading" secondItem="dW9-Mb-D0E" secondAttribute="leading" constant="50" id="ZCL-L9-35g"/>
-                            <constraint firstItem="ESG-Dm-mUK" firstAttribute="top" secondItem="Uet-my-Abj" secondAttribute="bottom" constant="50" id="dYm-yA-pjA"/>
                             <constraint firstItem="cMU-iQ-75d" firstAttribute="centerX" secondItem="iXo-js-hdU" secondAttribute="centerX" id="fVa-7r-PbH"/>
                             <constraint firstItem="hXQ-zR-R0E" firstAttribute="leading" secondItem="ESG-Dm-mUK" secondAttribute="trailing" constant="10" id="kLB-AM-HIV"/>
                             <constraint firstItem="cAx-nj-LKD" firstAttribute="top" secondItem="ESG-Dm-mUK" secondAttribute="bottom" constant="50" id="n6d-9A-4lo" userLabel="Item Description.top = Item Mileage.bottom + 70"/>
+                            <constraint firstItem="ESG-Dm-mUK" firstAttribute="top" secondItem="Uet-my-Abj" secondAttribute="bottom" constant="30" id="pbe-oK-hwq"/>
                             <constraint firstItem="Uet-my-Abj" firstAttribute="centerX" secondItem="iXo-js-hdU" secondAttribute="centerX" id="pdc-aZ-fF4"/>
                             <constraint firstItem="ESG-Dm-mUK" firstAttribute="centerY" secondItem="iXo-js-hdU" secondAttribute="centerY" id="prG-gE-Usb"/>
                             <constraint firstItem="cAx-nj-LKD" firstAttribute="top" secondItem="SS4-XN-Emo" secondAttribute="bottom" constant="5" id="r5t-BU-YYS"/>

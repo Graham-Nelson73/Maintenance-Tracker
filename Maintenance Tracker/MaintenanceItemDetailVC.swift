@@ -28,13 +28,25 @@ class MaintenanceItemDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //TODO handle nil maintenanceItem
+        //If maintenance item is nil, return to previous view in navigation stack
         if maintenanceItem == nil {
             _ = navigationController?.popViewController(animated: true)
         }
         
         initializeLabels()
         fillVehicleData()
+        
+        //add listeners for changes in keyboard
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    deinit{
+        //remove listeners
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     func fillVehicleData(){
@@ -46,7 +58,11 @@ class MaintenanceItemDetailVC: UIViewController {
             vehicleImageView.layer.cornerRadius = vehicleImageView.bounds.height/2
             vehicleImageView.backgroundColor = .white
             vehicleImageView.layer.borderWidth = 1
-            vehicleImageView.layer.borderColor = UIColor.lightGray.cgColor
+            if traitCollection.userInterfaceStyle == .light{
+                vehicleImageView.layer.borderColor = UIColor.lightGray.cgColor
+            } else {
+                vehicleImageView.layer.borderColor = UIColor.darkGray.cgColor
+            }
             if let url = URL(string: vehicle.imagePath ?? ""){
                 if let imageData = NSData(contentsOf: url){
                     //User has assigned custom image to vehicle
@@ -91,13 +107,33 @@ class MaintenanceItemDetailVC: UIViewController {
         itemDescription.text = maintenanceItem!.desc ?? ""
         itemDescription.layer.cornerRadius = 15
         itemDescription.layer.borderWidth = 1
-        itemDescription.layer.borderColor = UIColor.lightGray.cgColor
         
         itemDescription.layer.masksToBounds = false
-        itemDescription.layer.shadowColor = UIColor.lightGray.cgColor
+        if traitCollection.userInterfaceStyle == .light{
+            itemDescription.layer.shadowColor = UIColor.lightGray.cgColor
+            itemDescription.layer.borderColor = UIColor.lightGray.cgColor
+        } else {
+            itemDescription.layer.shadowColor = UIColor.darkGray.cgColor
+            itemDescription.layer.borderColor = UIColor.darkGray.cgColor
+        }
         itemDescription.layer.shadowOpacity = 1
         itemDescription.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         itemDescription.layer.shadowRadius = 5
+    }
+    
+    //shift view when keyboard appears to make textView more visible
+    @objc func keyboardWillChange(notification: Notification){
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        //offset so that keyboard will come up to bottom of textView
+        let textViewBottomEdgeOffset = view.frame.height - (itemDescription.frame.minY + itemDescription.frame.height + 10)
+        
+        if notification.name == UIResponder.keyboardWillShowNotification || notification.name == UIResponder.keyboardWillChangeFrameNotification {
+            view.frame.origin.y = -(keyboardSize.height - textViewBottomEdgeOffset )
+        } else {
+            view.frame.origin.y = 0
+        }
     }
     
     @objc func dismissKeyboard(){

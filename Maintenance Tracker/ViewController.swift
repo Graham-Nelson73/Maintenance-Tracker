@@ -32,20 +32,33 @@ class ViewController: UITableViewController{
         self.title = "Garage"
         vehiclesTableView.rowHeight = 100
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Vehicle", style: .plain, target: self, action: #selector(addVehicle))
-//        navigationController?.navigationBar.barTintColor = UIColor(displayP3Red: 235/255, green: 110/255, blue: 52/255, alpha: 1)
+        styleNavigationBar()
         
+        typePicker.delegate = self
+        typePicker.dataSource = self
+    }
+    
+    func styleNavigationBar(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Vehicle", style: .plain, target: self, action: #selector(addVehicle))
+        //set colors
         let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()
             navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
             navBarAppearance.backgroundColor = UIColor(displayP3Red: 235/255, green: 91/255, blue: 52/255, alpha: 1)
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationController?.navigationBar.tintColor = .black
-        
-        typePicker.delegate = self
-        typePicker.dataSource = self
+        //set shadow
+        navigationController?.navigationBar.layer.masksToBounds = false
+        if traitCollection.userInterfaceStyle == .light{
+            navigationController?.navigationBar.layer.shadowColor = UIColor.lightGray.cgColor
+        } else {
+            navigationController?.navigationBar.layer.shadowColor = UIColor.darkGray.cgColor
+        }
+        navigationController?.navigationBar.layer.shadowOpacity = 1
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        navigationController?.navigationBar.layer.shadowRadius = 7
     }
     
     //Present alert for user to specify details for a new vehicle
@@ -267,7 +280,11 @@ class ViewController: UITableViewController{
         cell.thumbnailImage.layer.cornerRadius = cell.thumbnailImage.bounds.height/2
         cell.thumbnailImage.backgroundColor = .white
         cell.thumbnailImage.layer.borderWidth = 1
-        cell.thumbnailImage.layer.borderColor = UIColor.lightGray.cgColor
+        if traitCollection.userInterfaceStyle == .light{
+            cell.thumbnailImage.layer.borderColor = UIColor.lightGray.cgColor
+        } else {
+            cell.thumbnailImage.layer.borderColor = UIColor.darkGray.cgColor
+        }
         
         if let url = URL(string: vehicles[indexPath.row].imagePath ?? ""){
             if let imageData = NSData(contentsOf: url){
